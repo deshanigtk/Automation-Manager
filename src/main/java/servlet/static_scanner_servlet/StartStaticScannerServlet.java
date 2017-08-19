@@ -30,8 +30,6 @@ public class StartStaticScannerServlet extends HttpServlet {
                     Constant.STATIC_SCANNER_HOST_PORT,
                     new String[]{});
 
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

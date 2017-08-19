@@ -11,10 +11,10 @@
     <title>Automation Manager</title>
 </head>
 <body>
-<h1>Scanners</h1>
-<h2>Static Scanner</h2>
+<a href="index.jsp"><h1>Scanners</h1></a>
+<a href="staticScanner.jsp"><h2>Static Scanner</h2></a>
 <h3>Static Scanning Methods</h3>
-<a href=""><h4>Dependency Check</h4></a>
-<a href="findSecBugs.jsp"><h4>Find Security Bugs</h4></a>
+<a href="/dependencyCheck"><h4>Dependency Check</h4></a>
+<a href="/findSecBugs"><h4>Find Security Bugs</h4></a>
 </body>
 </html>

@@ -24,8 +24,14 @@ public class CloneProductServlet extends HttpServlet {
         } else {
 
             String responseString = MainController.cloneProduct(req.getParameter("gitUrl"), req.getParameter("branch"));
+            System.out.println(responseString);
+
+            //REMOVE THIS
+            req.getRequestDispatcher("/staticScanners.jsp").forward(req, resp);
 
             if ("true".equals(responseString)) {
+                System.out.println("kkkk");
+                MainController.setIsProductCloned(true);
                 req.getRequestDispatcher("/staticScanners.jsp").forward(req, resp);
 
             }

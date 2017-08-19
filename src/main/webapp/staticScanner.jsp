@@ -19,33 +19,35 @@
 
 <!--Static Scanner status= "not started" -> A button to start scanner -->
 <% if ("not started".equals(MainController.getStaticScannerStatus())) { %>
-<form action="${pageContext.request.contextPath}/staticScanner">
+<form action="/staticScanner">
     <button name="startContainer"> Click Here to Start the Container</button>
 
 </form>
 
 <!--Static Scanner status= "running" -> Buttons to stop scanner, remove scanner -->
 <% } else if ("running".equals(MainController.getStaticScannerStatus())) { %>
-<form action="${pageContext.request.contextPath}/stopStaticScanner">
+<form action="/stopStaticScanner">
     <button name="stopContainer"> Click Here to STOP the Container</button>
 
 </form>
 
-<form action="${pageContext.request.contextPath}/removeStaticScanner">
+<form action=/removeStaticScanner">
     <button name="removeContainer"> Click Here to Remove the Container</button>
 </form>
-
+<p>Static Scanner is already started. Continue the Scan by uploading the product
+    <a href="staticScannerProductUpload.jsp"><h3>Upload Product</h3></a>
+</p>
 
 <!--Static Scanner status= "stopped" -> Buttons to restart scanner, remove scanner -->
-<% } else if ("running".equals(MainController.getStaticScannerStatus())) { %>
-<form action="${pageContext.request.contextPath}/stopStaticScanner">
-    <button name="restartContainer"> Click Here to STOP the Container</button>
+<% } else if ("stopped".equals(MainController.getStaticScannerStatus())) { %>
+<form action="/restartStaticScanner">
+    <button name="restartContainer"> Click Here to restart the Container</button>
 
 </form>
 
-<form action="${pageContext.request.contextPath}/removeStaticScanner">
-    <button name="stopContainer"> Click Here to Remove the Container</button>
-
+<form action="/removeStaticScanner">
+    <button name="removeContainer"> Click Here to Remove the Container</button>
+</form>
 
 <p>Static Scanner is already started. Continue the Scan by uploading the product
     <a href="staticScannerProductUpload.jsp"><h3>Upload Product</h3></a>

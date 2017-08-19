@@ -27,5 +27,7 @@ public class DependencyCheckServlet extends HttpServlet {
         HttpGet httpGet=new HttpGet(url);
 
         httpClient.execute(httpGet);
+
+        req.getRequestDispatcher("/staticScanners.jsp").forward(req, resp);
     }
 }

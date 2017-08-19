@@ -26,11 +26,7 @@ public class RestartStaticScannerServlet extends HttpServlet {
         if("stopped".equals(MainController.getStaticScannerStatus())){
             try {
                 DockerHandler.restartContainer(MainController.getStaticScannerContainerId());
-            } catch (DockerCertificateException e) {
-                e.printStackTrace();
-            } catch (DockerException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (DockerCertificateException | InterruptedException | DockerException e) {
                 e.printStackTrace();
             }
         }

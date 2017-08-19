@@ -1,4 +1,4 @@
-<%--
+<%@ page import="classes.MainController" %><%--
   Created by IntelliJ IDEA.
   User: deshani
   Date: 8/15/17
@@ -15,6 +15,8 @@
 <a href="index.jsp"><h1>Scanners</h1></a>
 <a href="staticScanner.jsp"><h2>Static Scanner</h2></a>
 <a href="#"><h3>Upload Product</h3></a>
+
+
 <form action="/cloneProduct">
     <h4>Clone From GitHub</h4>
     <label>GitHub URL</label>
@@ -29,5 +31,10 @@
     <input type="file" name="file"/>
     <button>Upload</button>
 </form>
+
+<% if (MainController.getIsProductCloned()) {%>
+<p>Product is successfully uploaded. Click here to continue</p>
+<a href="staticScanners.jsp">Static Scanning Methods</a>
+<%}%>
 </body>
 </html>
