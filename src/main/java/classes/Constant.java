@@ -17,7 +17,14 @@ public class Constant {
     public final static String STATIC_SCANNER_CONTAINER_PORT="8081";
     public final static String STATIC_SCANNER_IP_ADDRESS="0.0.0.0";
 
+    public final static String STATIC_SCANNER="static";
+    public final static String DYNAMIC_SCANNER="dynamic";
+
 
     public final static String CLONE_URL="http://localhost:8081/staticScanner/runScan/cloneProduct";
-}
 
+
+    public final static String RUNNING_STATE="running";
+    public final static String STOPPED_STATE="stopped";
+    public final static String NOT_STARTED_STATE="not started";
+}

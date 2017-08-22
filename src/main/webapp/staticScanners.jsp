@@ -12,7 +12,7 @@
 </head>
 <body>
 <a href="index.jsp"><h1>Scanners</h1></a>
-<a href="staticScanner.jsp"><h2>Static Scanner</h2></a>
+<a href="startStaticScanner.jsp"><h2>Static Scanner</h2></a>
 <h3>Static Scanning Methods</h3>
 <a href="/dependencyCheck"><h4>Dependency Check</h4></a>
 <a href="/findSecBugs"><h4>Find Security Bugs</h4></a>

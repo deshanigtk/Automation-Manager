@@ -1,13 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: deshani
-  Date: 8/17/17
-  Time: 10:35 AM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletResponse, classes.MainController" %>
-<%@ page import="java.awt.*" %>
+<%@ page import="javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletResponse, classes.MainController, java.awt.*, classes.Constant" %>
+
 <html>
 <head>
     <title>Automation Manager</title>
@@ -18,17 +12,16 @@
 <p>Pull Static Scanner Docker image and start the container</p>
 
 <!--Static Scanner status= "not started" -> A button to start scanner -->
-<% if ("not started".equals(MainController.getStaticScannerStatus())) { %>
-<form action="/staticScanner">
+<% if (Constant.NOT_STARTED_STATE.equals(MainController.getStaticScannerStatus())) { %>
+<form action="/startStaticScanner">
     <button name="startContainer"> Click Here to Start the Container</button>
 
 </form>
 
 <!--Static Scanner status= "running" -> Buttons to stop scanner, remove scanner -->
-<% } else if ("running".equals(MainController.getStaticScannerStatus())) { %>
+<% } else if (Constant.RUNNING_STATE.equals(MainController.getStaticScannerStatus())) { %>
 <form action="/stopStaticScanner">
     <button name="stopContainer"> Click Here to STOP the Container</button>
-
 </form>
 
 <form action=/removeStaticScanner">
@@ -39,7 +32,7 @@
 </p>
 
 <!--Static Scanner status= "stopped" -> Buttons to restart scanner, remove scanner -->
-<% } else if ("stopped".equals(MainController.getStaticScannerStatus())) { %>
+<% } else if (Constant.STOPPED_STATE.equals(MainController.getStaticScannerStatus())) { %>
 <form action="/restartStaticScanner">
     <button name="restartContainer"> Click Here to restart the Container</button>
 

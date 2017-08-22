@@ -1,12 +1,18 @@
 package classes;
 
+import com.google.common.collect.ImmutableSet;
 import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
 import com.spotify.docker.client.LogStream;
 import com.spotify.docker.client.exceptions.DockerCertificateException;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.spotify.docker.client.messages.*;
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 
+import javax.servlet.ServletContext;
+import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,26 +29,12 @@ public class DockerHandler {
 
     }
 
-    public static String dockerRun(String imageName, String ipAddress, String containerPort, String hostPort, String[] cmd) throws Exception {
-        Boolean isImageAvailable = pullImage(imageName);
-        String containerId = null;
-
-        if (isImageAvailable) {
-            containerId = createContainer(imageName, ipAddress, containerPort, hostPort, cmd);
-            if (containerId != null) {
-                startContainer(containerId);
-            }
-
-        }
-        return containerId;
-    }
-
-    private static boolean pullImage(String imageName) throws Exception {
+    public static boolean pullImage(String imageName) throws Exception {
         getDockerClient().pull(imageName);
         return getDockerClient().searchImages(imageName) != null;
     }
 
-    private static String createContainer(String imageName, String ipAddress, String containerPort, String hostPort, String[] cmd) throws Exception {
+    public static String createContainer(String imageName, String ipAddress, String containerPort, String hostPort, String[] cmd) throws Exception {
         String[] ports = {containerPort, hostPort};
         HashMap<String, List<PortBinding>> portBindings = new HashMap<>();
 
@@ -64,12 +56,12 @@ public class DockerHandler {
 
     }
 
-    private static boolean startContainer(String containerId) throws Exception {
+    public static boolean startContainer(String containerId) throws Exception {
         getDockerClient().startContainer(containerId);
         return "running".equals(inspectContainer(containerId).state().status());
     }
 
-    private static ContainerInfo inspectContainer(String containerId) throws Exception {
+    public static ContainerInfo inspectContainer(String containerId) throws Exception {
         return getDockerClient().inspectContainer(containerId);
     }
 
@@ -103,6 +95,33 @@ public class DockerHandler {
 
     public static void closeDockerClient() throws Exception {
         getDockerClient().close();
+    }
+
+    public static void copyFilesFromContainer(String containerId,String filePathToCopy, String destinationFile, File destinationFolder) throws IOException, DockerCertificateException, DockerException, InterruptedException {
+
+        InputStream inputStream = getDockerClient().archiveContainer(containerId, filePathToCopy);
+
+        FileOutputStream outputStream =
+                new FileOutputStream(new File(destinationFolder, destinationFile));
+
+        int read;
+        byte[] bytes = new byte[1024];
+
+        while ((read = inputStream.read(bytes)) != -1) {
+            outputStream.write(bytes, 0, read);
+        }
+
+        if (inputStream != null) {
+            inputStream.close();
+        }
+        if (outputStream != null) {
+            outputStream.close();
+        }
+
+    }
+
+    public static void copyFilesToContainer(InputStream inputStream, String containerId, String path) throws DockerCertificateException, InterruptedException, DockerException, IOException {
+        getDockerClient().copyToContainer(inputStream,containerId,path);
     }
 
 }

@@ -11,13 +11,22 @@
     <title>Send Email</title>
 </head>
 <body>
-<form action="mail" method="post">
-    To:<input type="text" name="to"  /><br/>
-    Subject:<input type="text" name="subject"  /><br/>
-    Message:<input type="text" name="message"  /><br/>
-    Your Email id:<input type="text" name="user" ><br/>
-    Password<input type="password" name="pass"   /><br/>
-    <input type="submit" value="send" />
+
+<form action="/sendEmail" method="post">
+    <% String scanType=request.getParameter("scanType");%>
+    <label>To</label><br>
+    <input name="to"/><br>
+    <label>Subject</label><br>
+    <input name="subject"/><br>
+
+    <label>Message</label><br>
+    <input name="message"/><br>
+
+    <input name="user" value="codeophrenia@gmail.com" hidden>
+    <input name="pass" value="qoqlgzcnwoddinga" hidden>
+
+    <% request.setAttribute("scantype",scanType);%>
+    <input type="submit" value="send"/>
 </form>
 </body>
 </html>

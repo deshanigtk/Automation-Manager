@@ -26,7 +26,7 @@
     <input name="branch">
     <button>Clone</button>
 </form>
-<form action="upload" method="post" enctype="multipart/form-data">
+<form action="/upload" method="post" enctype="multipart/form-data">
     <h4>Upload Zip File</h4>
     <input type="file" name="file"/>
     <button>Upload</button>

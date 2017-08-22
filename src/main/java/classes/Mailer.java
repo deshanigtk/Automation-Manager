@@ -11,9 +11,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.ServletContext;
 
 public class Mailer {
-    public static void send(String to, String sub,
+    public static void send(String to, String sub, String fileName,
                             String msg, final String user, final String pass) {
         //create an instance of Properties Class
         Properties props = new Properties();
@@ -64,7 +65,7 @@ public class Mailer {
 
             // Part two is attachment
             messageBodyPart = new MimeBodyPart();
-            String filename = "/home/deshani/Documents/Product-old/Dependency-Check-Reports.zip";
+            String filename = fileName;
             DataSource source = new FileDataSource(filename);
             messageBodyPart.setDataHandler(new DataHandler(source));
             messageBodyPart.setFileName(filename);
