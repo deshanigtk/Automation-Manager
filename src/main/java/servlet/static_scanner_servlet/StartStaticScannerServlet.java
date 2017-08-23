@@ -1,9 +1,7 @@
 package servlet.static_scanner_servlet;
 
 import classes.Constant;
-import classes.DockerHandler;
 import classes.MainController;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,17 +11,19 @@ import java.io.IOException;
 
 @WebServlet(
         name = "StartStaticScannerServlet",
-        urlPatterns = {"/staticScanner"}
+        urlPatterns = {"/startStaticScanner"}
 )
 
 public class StartStaticScannerServlet extends HttpServlet {
-    private String containerId;
+    private boolean isContainerStarted;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
         try {
-            containerId = DockerHandler.dockerRun(
+            isContainerStarted = MainController.dockerRun(
+                    Constant.STATIC_SCANNER,
                     Constant.STATIC_SCANNER_IMAGE_NAME,
                     Constant.STATIC_SCANNER_IP_ADDRESS,
                     Constant.STATIC_SCANNER_CONTAINER_PORT,
@@ -34,14 +34,18 @@ public class StartStaticScannerServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        if (containerId != null) {
-            MainController.setStaticScannerContainerId(containerId);
-            MainController.setStaticScannerStatus("running");
+        if (isContainerStarted) {
 
-//            message="Static Scanner is Started";
-//            req.setAttribute("message", message);
-
-            req.getRequestDispatcher("/staticScannerProductUpload.jsp").forward(req, resp);
+            req.getRequestDispatcher("staticScannerProductUpload.jsp").forward(req, resp);
+        } else {
+            if (!MainController.getStaticScannerPullStatus()) {
+                req.setAttribute("message", "Can't pull Docker image");
+            } else if (MainController.getStaticScannerContainerId() == null) {
+                req.setAttribute("message", "Can't create container");
+            } else if (!Constant.RUNNING_STATE.equals(MainController.getStaticScannerStatus())) {
+                req.setAttribute("message", "Can't start container");
+            }
+            req.getRequestDispatcher("/startStaticScanner").forward(req, resp);
         }
     }
 }

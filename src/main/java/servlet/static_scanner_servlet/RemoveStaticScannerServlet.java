@@ -26,7 +26,6 @@ public class RemoveStaticScannerServlet extends HttpServlet {
 
             DockerHandler.removeContainer(MainController.getStaticScannerContainerId());
             MainController.setStaticScannerStatus("not started");
-            MainController.setStaticScannerContainerId(null);
 
         } catch (Exception e) {
             e.printStackTrace();

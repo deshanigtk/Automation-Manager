@@ -21,12 +21,12 @@ public class DynamicScannerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         try {
-            DockerHandler.dockerRun(
-                    Constant.ZAP_DOCKER_IMAGE_NAME,
-                    Constant.ZAP_IP_ADDRESS,
-                    Constant.ZAP_CONTAINER_PORT,
-                    Constant.ZAP_HOST_PORT,
-                    Constant.ZAP_CONTAINER_STARTUP_COMMAND);
+//            DockerHandler.dockerRun(
+//                    Constant.ZAP_DOCKER_IMAGE_NAME,
+//                    Constant.ZAP_IP_ADDRESS,
+//                    Constant.ZAP_CONTAINER_PORT,
+//                    Constant.ZAP_HOST_PORT,
+//                    Constant.ZAP_CONTAINER_STARTUP_COMMAND);
         } catch (Exception e) {
             e.printStackTrace();
         }

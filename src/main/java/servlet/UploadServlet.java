@@ -1,5 +1,10 @@
 package servlet;
 
+import classes.DockerHandler;
+import classes.MainController;
+import com.spotify.docker.client.exceptions.DockerCertificateException;
+import com.spotify.docker.client.exceptions.DockerException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +20,14 @@ import java.nio.file.Paths;
 @MultipartConfig
 public class UploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
         InputStream fileContent = filePart.getInputStream();
         // ... (do your job here)
+        try {
+            DockerHandler.copyFilesToContainer(fileContent, MainController.getStaticScannerContainerId(), "/opt/Product");
+        } catch (DockerCertificateException | DockerException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

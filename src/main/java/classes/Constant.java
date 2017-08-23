@@ -21,7 +21,7 @@ public class Constant {
     public final static String DYNAMIC_SCANNER="dynamic";
 
 
-    public final static String CLONE_URL="http://localhost:8081/staticScanner/runScan/cloneProduct";
+    public final static String CLONE_URL="http://localhost:8081/staticScanner/cloneProduct";
 
 
     public final static String RUNNING_STATE="running";

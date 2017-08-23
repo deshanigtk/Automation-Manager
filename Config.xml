@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<configurations>
+    <static_scanner>
+        <docker_image>dessi/static_scanner</docker_image>
+        <host_port>8081</host_port>
+        <container_port>8081</container_port>
+        <ip_address>0.0.0.0</ip_address>
+        <url_mappings>
+            <base>staticScanner</base>
+            <clone>cloneProduct</clone>
+            <dependency_check>dependencyCheck</dependency_check>
+            <findSecbugs>findSecBugs</findSecbugs>
+        </url_mappings>
+    </static_scanner>
+    <zap>
+        <docker_image>owasp/zap2docker-stable:latest</docker_image>
+        <host_port>8082</host_port>
+        <container_port>8082</container_port>
+        <ip_address>0.0.0.0</ip_address>
+        <cmd>
+            <cmd_1>zap.sh</cmd_1>
+            <cmd_2>-daemon</cmd_2>
+            <cmd_3>-port</cmd_3>
+            <cmd_4>8082</cmd_4>
+            <cmd_5>-host</cmd_5>
+            <cmd_6>0.0.0.0</cmd_6>
+            <cmd_7>-config</cmd_7>
+            <cmd_8>api.disablekey=true</cmd_8>
+            <cmd_9>-config</cmd_9>
+            <cmd_10>api.addrs.addr.name=.*</cmd_10>
+            <cmd_11>-config</cmd_11>
+            <cmd_12>api.addrs.addr.regex=true</cmd_12>
+        </cmd>
+    </zap>
+
+</configurations>
