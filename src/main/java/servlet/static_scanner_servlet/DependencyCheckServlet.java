@@ -1,5 +1,6 @@
 package servlet.static_scanner_servlet;
 
+import classes.Constants;
 import classes.DockerHandler;
 import classes.MainController;
 import com.spotify.docker.client.exceptions.DockerCertificateException;
@@ -24,7 +25,7 @@ import java.io.IOException;
 
 public class DependencyCheckServlet extends HttpServlet {
 
-    private String url = "http://localhost:8081/staticScanner/runScan/dependencyCheck";
+    private String url = "http://localhost:8081/staticScanner/dependencyCheck";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -36,17 +37,17 @@ public class DependencyCheckServlet extends HttpServlet {
 
         httpClient.execute(httpGet);
 
-        String filePathToCopy="/opt/Product/Dependency-Check-Reports.zip";
-        String destinationFile="Dependency-Check-Reports.zip";
-        File destinationFolder=(File) getServletContext().getAttribute(ServletContext.TEMPDIR);
+        String filePathToCopy = MainController.getProductPath() + Constants.DEPENDENCY_CHECK_REPORTS + Constants.ZIP_FILE_EXTENSION;
+        String destinationFile = Constants.DEPENDENCY_CHECK_REPORTS + Constants.ZIP_FILE_EXTENSION;
+        File destinationFolder = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
 
         try {
-            DockerHandler.copyFilesFromContainer(MainController.getStaticScannerContainerId(),filePathToCopy,destinationFile,destinationFolder);
+            DockerHandler.copyFilesFromContainer(MainController.getStaticScannerContainerId(), filePathToCopy, destinationFile, destinationFolder);
         } catch (DockerCertificateException | DockerException | InterruptedException e) {
             e.printStackTrace();
         }
 
-        req.setAttribute("scanType","Dependency Check");
+        req.setAttribute(Constants.SCAN_TYPE, Constants.DEPENDENCY_CHECK);
         req.getRequestDispatcher("/sendEmail.jsp").forward(req, resp);
     }
 }

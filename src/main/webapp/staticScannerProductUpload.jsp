@@ -16,7 +16,10 @@
 <a href="startStaticScanner.jsp"><h2>Static Scanner</h2></a>
 <a href="#"><h3>Upload Product</h3></a>
 
-
+<form action="/configure">
+    <input name="productPath"/>
+    <button>Configure Product Path</button>
+</form>
 <form action="/cloneProduct">
     <h4>Clone From GitHub</h4>
     <label>GitHub URL</label>

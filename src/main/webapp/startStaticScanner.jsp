@@ -1,6 +1,6 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletResponse, classes.MainController, java.awt.*, classes.Constants" %>
+<%@ page
+        import="javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletResponse, classes.MainController, java.awt.*, classes.Constants" %>
 
 <html>
 <head>
@@ -15,7 +15,6 @@
 <% if (Constants.NOT_STARTED_STATE.equals(MainController.getStaticScannerStatus())) { %>
 <form action="/startStaticScanner">
     <button name="startContainer"> Click Here to Start the Container</button>
-
 </form>
 
 <!--Static Scanner status= "running" -> Buttons to stop scanner, remove scanner -->

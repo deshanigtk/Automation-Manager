@@ -1,20 +1,13 @@
 package servlet.static_scanner_servlet;
 
 import classes.Constants;
-import classes.HttpRequestHandler;
 import classes.MainController;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-@WebServlet(
-        name = "StartStaticScannerServlet",
-        urlPatterns = {"/startStaticScanner"}
-)
 
 public class StartStaticScannerServlet extends HttpServlet {
     private boolean isContainerStarted;
@@ -39,7 +32,7 @@ public class StartStaticScannerServlet extends HttpServlet {
 
         if (isContainerStarted) {
 
-            req.getRequestDispatcher("/configure").forward(req, resp);
+            req.getRequestDispatcher("/staticScannerProductUpload.jsp").forward(req, resp);
         } else {
             if (!MainController.getStaticScannerPullStatus()) {
                 req.setAttribute("message", "Can't pull Docker image");

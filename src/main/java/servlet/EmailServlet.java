@@ -1,14 +1,9 @@
 package servlet;
 
-// File Name SendEmail.java
-
-import classes.DockerHandler;
+import classes.Constants;
 import classes.Mailer;
-import com.spotify.docker.client.exceptions.DockerCertificateException;
-import com.spotify.docker.client.exceptions.DockerException;
 
 import java.io.*;
-import java.util.HashMap;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -25,7 +20,6 @@ public class EmailServlet extends HttpServlet {
 
 
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
 
         String to = request.getParameter("to");
         String subject = request.getParameter("subject");
@@ -34,28 +28,35 @@ public class EmailServlet extends HttpServlet {
         String pass = request.getParameter("pass");
         String scanType = request.getParameter("scanType");
 
-        System.out.println(scanType);
-        File file = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
         String fileName = null;
 
-        File[] files = file.listFiles();
+        switch (scanType) {
+            case Constants.FIND_SECURITY_BUGS:
+                fileName = Constants.FIND_SEC_BUGS_REPORTS + Constants.ZIP_FILE_EXTENSION;
+                break;
+            case Constants.DEPENDENCY_CHECK:
+                fileName = Constants.DEPENDENCY_CHECK_REPORTS + Constants.ZIP_FILE_EXTENSION;
+                break;
+            case Constants.ZAP:
+                fileName = Constants.ZAP_REPORT;
+                break;
+        }
 
-        HashMap<String, String> scanReportMap = new HashMap<>();
-        scanReportMap.put("Dependency Check", "Dependency-Check-Reports.zip");
-        scanReportMap.put("FindSecBugs", "FindSecBugs-Reports.zip");
-        scanReportMap.put("Zap", "Zap-report");
 
-        if (scanReportMap.containsKey(scanType)) {
-            for (File x : files) {
-                if (x.getName().equals(scanReportMap.get(scanType))) {
-                    fileName = x.getAbsolutePath();
+        if (fileName != null) {
+            File file = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
+
+            File[] files = file.listFiles();
+            for (File f : files) {
+                if (f.getName().equals(fileName)) {
+                    fileName = f.getAbsolutePath();
+                    Mailer.send(to, subject, fileName, message, user, pass);
+                    break;
                 }
             }
-        }
-        if (fileName != null) {
-            Mailer.send(to, subject, fileName, message, user, pass);
-            out.println("Mail send successfully");
 
         }
+
+
     }
 }

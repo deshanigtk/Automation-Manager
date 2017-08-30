@@ -24,6 +24,8 @@ public class MainController {
 
     private static boolean dynamicScannerPullState = false;
 
+    private static String productPath;
+
     public static void setStaticScannerStatus(String status) {
         staticScannerStatus = status;
     }
@@ -38,7 +40,7 @@ public class MainController {
 
     public static String cloneProduct(String gitUrl, String branch) throws IOException {
 
-        String[] urlArray = new String[]{Constants.CLONE_URL, "?", "gitUrl", "=", gitUrl, "&", "branch", "=", branch,"&","replaceExisting=false"};
+        String[] urlArray = new String[]{Constants.CLONE_URL, "?", "gitUrl", "=", gitUrl, "&", "branch", "=", branch, "&", "replaceExisting=false"};
         StringBuilder sb = new StringBuilder();
         for (String s : urlArray) {
             sb.append(s);
@@ -91,6 +93,14 @@ public class MainController {
             }
         }
         return false;
+    }
+
+    public static void setProductPath(String path) {
+        productPath = path;
+    }
+
+    public static String getProductPath(){
+        return productPath;
     }
 
     public static boolean getStaticScannerPullStatus() {
