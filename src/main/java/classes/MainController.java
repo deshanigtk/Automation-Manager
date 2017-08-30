@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class MainController {
 
-    private static String staticScannerStatus = Constant.NOT_STARTED_STATE;
+    private static String staticScannerStatus = Constants.NOT_STARTED_STATE;
     private static String staticScannerContainerId;
 
     private static boolean staticScannerPullState = false;
@@ -19,7 +19,7 @@ public class MainController {
     private static boolean isProductCloned = false;
 
 
-    private static String dynamicScannerStatus = Constant.NOT_STARTED_STATE;
+    private static String dynamicScannerStatus = Constants.NOT_STARTED_STATE;
     private static String dynamicScannerContainerId;
 
     private static boolean dynamicScannerPullState = false;
@@ -38,7 +38,7 @@ public class MainController {
 
     public static String cloneProduct(String gitUrl, String branch) throws IOException {
 
-        String[] urlArray = new String[]{Constant.CLONE_URL, "?", "gitUrl", "=", gitUrl, "&", "branch", "=", branch};
+        String[] urlArray = new String[]{Constants.CLONE_URL, "?", "gitUrl", "=", gitUrl, "&", "branch", "=", branch,"&","replaceExisting=false"};
         StringBuilder sb = new StringBuilder();
         for (String s : urlArray) {
             sb.append(s);
@@ -58,7 +58,7 @@ public class MainController {
 
     public static boolean dockerRun(String scannerType, String imageName, String ipAddress, String containerPort, String hostPort, String[] cmd) throws Exception {
 
-        if (Constant.STATIC_SCANNER.equals(scannerType)) {
+        if (Constants.STATIC_SCANNER.equals(scannerType)) {
             staticScannerPullState = DockerHandler.pullImage(imageName);
 
             if (staticScannerPullState) {
@@ -67,14 +67,14 @@ public class MainController {
                 if (staticScannerContainerId != null) {
 
                     if (DockerHandler.startContainer(staticScannerContainerId)) {
-                        staticScannerStatus = Constant.RUNNING_STATE;
+                        staticScannerStatus = Constants.RUNNING_STATE;
                         return true;
                     }
 
                 }
             }
         }
-        if (Constant.DYNAMIC_SCANNER.equals(scannerType)) {
+        if (Constants.DYNAMIC_SCANNER.equals(scannerType)) {
             dynamicScannerPullState = DockerHandler.pullImage(imageName);
 
             if (dynamicScannerPullState) {
@@ -83,7 +83,7 @@ public class MainController {
                 if (dynamicScannerContainerId != null) {
 
                     if (DockerHandler.startContainer(dynamicScannerContainerId)) {
-                        dynamicScannerStatus = Constant.RUNNING_STATE;
+                        dynamicScannerStatus = Constants.RUNNING_STATE;
                         return true;
                     }
 

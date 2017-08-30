@@ -13,7 +13,8 @@
 <body>
 
 <form action="/sendEmail" method="post">
-    <% String scanType=request.getParameter("scanType");%>
+    <%--<% String scanType=request.getParameter("scanType");%>--%>
+    <p>${scanType}</p>
     <label>To</label><br>
     <input name="to"/><br>
     <label>Subject</label><br>
@@ -25,7 +26,7 @@
     <input name="user" value="codeophrenia@gmail.com" hidden>
     <input name="pass" value="qoqlgzcnwoddinga" hidden>
 
-    <% request.setAttribute("scantype",scanType);%>
+    <%--<% request.setAttribute("scantype",scanType);%>--%>
     <input type="submit" value="send"/>
 </form>
 </body>

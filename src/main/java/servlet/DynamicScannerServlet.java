@@ -1,8 +1,5 @@
 package servlet;
 
-import classes.Constant;
-import classes.DockerHandler;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,11 +19,11 @@ public class DynamicScannerServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
 //            DockerHandler.dockerRun(
-//                    Constant.ZAP_DOCKER_IMAGE_NAME,
-//                    Constant.ZAP_IP_ADDRESS,
-//                    Constant.ZAP_CONTAINER_PORT,
-//                    Constant.ZAP_HOST_PORT,
-//                    Constant.ZAP_CONTAINER_STARTUP_COMMAND);
+//                    Constants.ZAP_DOCKER_IMAGE_NAME,
+//                    Constants.ZAP_IP_ADDRESS,
+//                    Constants.ZAP_CONTAINER_PORT,
+//                    Constants.ZAP_HOST_PORT,
+//                    Constants.ZAP_CONTAINER_STARTUP_COMMAND);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletResponse, classes.MainController, java.awt.*, classes.Constant" %>
+<%@ page import="javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletResponse, classes.MainController, java.awt.*, classes.Constants" %>
 
 <html>
 <head>
@@ -12,14 +12,14 @@
 <p>Pull Static Scanner Docker image and start the container</p>
 
 <!--Static Scanner status= "not started" -> A button to start scanner -->
-<% if (Constant.NOT_STARTED_STATE.equals(MainController.getStaticScannerStatus())) { %>
+<% if (Constants.NOT_STARTED_STATE.equals(MainController.getStaticScannerStatus())) { %>
 <form action="/startStaticScanner">
     <button name="startContainer"> Click Here to Start the Container</button>
 
 </form>
 
 <!--Static Scanner status= "running" -> Buttons to stop scanner, remove scanner -->
-<% } else if (Constant.RUNNING_STATE.equals(MainController.getStaticScannerStatus())) { %>
+<% } else if (Constants.RUNNING_STATE.equals(MainController.getStaticScannerStatus())) { %>
 <form action="/stopStaticScanner">
     <button name="stopContainer"> Click Here to STOP the Container</button>
 </form>
@@ -32,7 +32,7 @@
 </p>
 
 <!--Static Scanner status= "stopped" -> Buttons to restart scanner, remove scanner -->
-<% } else if (Constant.STOPPED_STATE.equals(MainController.getStaticScannerStatus())) { %>
+<% } else if (Constants.STOPPED_STATE.equals(MainController.getStaticScannerStatus())) { %>
 <form action="/restartStaticScanner">
     <button name="restartContainer"> Click Here to restart the Container</button>
 

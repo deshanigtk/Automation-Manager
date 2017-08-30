@@ -13,7 +13,7 @@
 </head>
 <body>
 <a href="index.jsp"><h1>Scanners</h1></a>
-<a href="staticScanner.jsp"><h2>Static Scanner</h2></a>
+<a href="startStaticScanner.jsp"><h2>Static Scanner</h2></a>
 <a href="#"><h3>Upload Product</h3></a>
 
 
@@ -26,7 +26,7 @@
     <input name="branch">
     <button>Clone</button>
 </form>
-<form action="upload" method="post" enctype="multipart/form-data">
+<form action="/upload" method="post" enctype="multipart/form-data">
     <h4>Upload Zip File</h4>
     <input type="file" name="file"/>
     <button>Upload</button>
